@@ -24,10 +24,25 @@ nb = "1.0"
 panic-halt = "0.2.0"
 pio = "0.2.0"
 pio-proc = "0.2.0"
-rp235x-hal = { path = "../../../rpi-pico/clones/rp-hal/rp235x-hal", version = "0.2.0", features = ["binary-info", "critical-section-impl", "rt", "defmt"]}
 usb-device = "0.3.2"
 usbd-serial = "0.2.2"
 static_cell = "2.1.0"
+
+# Fails with:
+#   error[E0433]: failed to resolve: could not find `rp_cargo_bin_name` in `binary_info`
+#     --> src/main.rs:86:23
+#      |
+#   86 |     hal::binary_info::rp_cargo_bin_name!(),
+#      |                       ^^^^^^^^^^^^^^^^^ could not find `rp_cargo_bin_name` in `binary_info`
+#   
+#   error[E0433]: failed to resolve: could not find `rp_cargo_homepage_url` in `binary_info`
+#     --> src/main.rs:89:23
+#      |
+#   89 |     hal::binary_info::rp_cargo_homepage_url!(),
+#      |                       ^^^^^^^^^^^^^^^^^^^^^ could not find `rp_cargo_homepage_url` in `binary_info`
+#   
+#rp235x-hal = { version = "0.2.0", features = ["binary-info", "critical-section-impl", "rt", "defmt"] }
+rp235x-hal = { path = "../rp-hal/rp235x-hal", version = "0.2.0", features = ["binary-info", "critical-section-impl", "rt", "defmt"] }
 
 [target.'cfg( target_arch = "arm" )'.dependencies]
 embassy-executor = {version = "0.5", features = ["arch-cortex-m", "executor-thread"]}
