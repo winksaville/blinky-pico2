@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+embedded-hal = "1.0.0"
+panic-halt = "0.2.0"
+rp235x-hal = "0.2.0"
