@@ -46,3 +46,6 @@ rp235x-hal = { path = "../rp-hal/rp235x-hal", version = "0.2.0", features = ["bi
 
 [target.'cfg( target_arch = "arm" )'.dependencies]
 embassy-executor = {version = "0.5", features = ["arch-cortex-m", "executor-thread"]}
+
+[target.'cfg( target_arch = "riscv32" )'.dependencies]
+embassy-executor = {version = "0.5", features = ["arch-riscv32", "executor-thread"]}
