@@ -1,31 +1,38 @@
 # blinky for pico2
 
-Blink the led on a pico2. This is from the examples at repo [rp-rs/rp-hal](https://github.com/rp-rs/rp-hal)
+Blink the LED on a pico2. This is from the examples at repo [rp-rs/rp-hal](https://github.com/rp-rs/rp-hal)
 and specifically [blinky.rs](https://github.com/rp-rs/rp-hal/blob/b41c5a7e56c4d31e16dc3ff43a802bb007d1e0bb/rp235x-hal-examples/src/bin/blinky.rs)
 
 ## Set up
 
 Install rust via rustup and then install [picotool](https://github.com/raspberrypi/picotool)
-to flash the board, also be sure picotool in your PATH. For Arch Linux there are AUR packages
-[picotool](https://aur.archlinux.org/packages/picotool)
-and [pico-sdk](https://aur.archlinux.org/packages/pico-sdk) which picotool needs:
+to flash the board, also be sure picotool is in your PATH. On Arch Linux you can install
+the are AUR packages [pico-sdk](https://aur.archlinux.org/packages/pico-sdk) and then
+[picotool](https://aur.archlinux.org/packages/picotool):
 ```
 $ picotool version
 picotool v2.0.0 (Linux, GNU-14.2.1, Release)
 ```
 
-Clone [blinky-pico2 repo](https://github.com/winksaville/blinky-pico2).
+Clone this repo, [blinky-pico2](https://github.com/winksaville/blinky-pico2).
 
-Clone [rp-rs/rp-hall](https://github.com/rp-rs/rp-hal) so
-it's next to `blinky-pico2` or modify the path in `Cargo.toml`. Bottom
-line rp235x-hal must be locatable by the dependency line in `Cargo.toml`:
+At the time of blinky-pico2 was created you cannot just `cargo install rp235x-hal`
+you must clone [rp-rs/rp-hall](https://github.com/rp-rs/rp-hal) so
+it's next to `blinky-pico2` or modify the path in `Cargo.toml` to point at
+where you have rp-hall/rp235x-hal. Bottom line, rp235x-hal must be locatable
+by the dependency line in `Cargo.toml`:
 ```
 rp235x-hal = { path = "../rp-hal/rp235x-hal", version = "0.2.0", features = ["binary-info", "critical-section-impl", "rt", "defmt"] }
 ```
 
-Next switch to this known working commit; `git switch -C ok-blinky-pico2 247dce8c68d1be46c22ccd01f812252c908cc13a`
+Next switch to this known working commit;
+`git switch -C ok-blinky-pico2 247dce8c68d1be46c22ccd01f812252c908cc13a` although
+the latest main may work.
 
 ## Build and run for ARM
+
+As currently configured the default target is `thumbv8m.main-none-eabihf` so
+it's not necessary to specify the target when building or running.
 
 Build blinky:
 ```
@@ -67,7 +74,10 @@ The device was rebooted to start the application.
 wink@fwlaptop 24-10-23T23:03:19.494Z:~/prgs/rust/myrepos/blinky-pico2 (main)
 ```
 
-## Build and run for RISCV
+## Build and run for RISC-V
+
+To build for RISC-V you must specify the target `riscv32imac-unknown-none-elf` and
+run.
 
 Build blinky:
 ```
@@ -105,13 +115,15 @@ wink@fwlaptop 24-10-24T00:52:01.805Z:~/prgs/rust/myrepos/blinky-pico2 (main)
 
 ## Fails with current released of rp235x-hal
 
-Using `cargo add rp235x-hal --features "binary-info critical-section-impl rt defmt"` which
-creates dependency:
+As mentioned above the current released of rp235x-hal does not work with this repo,
+hopeufull this will be fixed soon. Here what happened when I added rp235x-hal
+using `cargo add rp235x-hal --features "binary-info critical-section-impl rt defmt"`
+which creates dependency:
 ```
 rp235x-hal = { version = "0.2.0", features = ["binary-info", "critical-section-impl", "rt", "defmt"] }
 ```
 
-Fails with:
+It fails with:
 ```
  error[E0433]: failed to resolve: could not find `rp_cargo_bin_name` in `binary_info`
    --> src/main.rs:86:23
