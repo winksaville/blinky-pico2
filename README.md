@@ -16,17 +16,18 @@ picotool v2.0.0 (Linux, GNU-14.2.1, Release)
 
 Clone this repo, [blinky-pico2](https://github.com/winksaville/blinky-pico2).
 
-At the time of blinky-pico2 was created you cannot just `cargo install rp235x-hal`
+ATM blinky-pico2 needs rp235x-hal v0.3.0 but it is not yet published
+so you cannot just `cargo install rp235x-hal` you must
 you must clone [rp-rs/rp-hall](https://github.com/rp-rs/rp-hal) so
 it's next to `blinky-pico2` or modify the path in `Cargo.toml` to point at
 where you have rp-hall/rp235x-hal. Bottom line, rp235x-hal must be locatable
 by the dependency line in `Cargo.toml`:
 ```
-rp235x-hal = { path = "../rp-hal/rp235x-hal", version = "0.2.0", features = ["binary-info", "critical-section-impl", "rt", "defmt"] }
+rp235x-hal = { path = "../rp-hal/rp235x-hal", version = "0.3.0", features = ["binary-info", "critical-section-impl", "rt", "defmt"] }
 ```
 
 Next switch to this known working commit;
-`git switch -C ok-blinky-pico2 e87e2ac` although
+`git switch -C ok-blinky-pico2 4a71adf031` which is v0.3.0 although
 the latest main may work.
 
 ## Build and run for ARM

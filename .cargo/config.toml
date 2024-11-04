@@ -89,6 +89,10 @@ rustflags = [
     "-C", "link-arg=--nmagic",
     "-C", "link-arg=-Trp235x_riscv.x",
     "-C", "link-arg=-Tdefmt.x",
+    # Enable optimizations which slightly reduces binary
+    # size but also causes warnings during building.
+    #  see: https://matrix.to/#/!zbjndUiYJDvhDRkPGw:matrix.org/$zB-8t1M3n-DwZevA2gcJOnsw9oHpooIPke2nsfsuxFU?via=matrix.org&via=crabsin.space&via=matrix.rustysoft.de
+    #"-C", "target-feature=+zicsr,+zifencei,+zcb,+zcmp,+zba,+zbb,+zbkb,+zbs",
 ]
 
 # Use picotool for loading.
