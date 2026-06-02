@@ -17,8 +17,8 @@ MEMORY {
      * of access times.
      * Example: Separate stacks for core0 and core1.
      */
-    SRAM4 : ORIGIN = 0x20080000, LENGTH = 4K
-    SRAM5 : ORIGIN = 0x20081000, LENGTH = 4K
+    SRAM8 : ORIGIN = 0x20080000, LENGTH = 4K
+    SRAM9 : ORIGIN = 0x20081000, LENGTH = 4K
 }
 
 /* # Developer notes
@@ -79,6 +79,57 @@ PROVIDE(__pre_init = default_pre_init);
 
 /* A PAC/HAL defined routine that should initialize custom interrupt controller if needed. */
 PROVIDE(_setup_interrupts = default_setup_interrupts);
+
+PROVIDE(TIMER0_IRQ_0 = DefaultIrqHandler);
+PROVIDE(TIMER0_IRQ_1 = DefaultIrqHandler);
+PROVIDE(TIMER0_IRQ_2 = DefaultIrqHandler);
+PROVIDE(TIMER0_IRQ_3 = DefaultIrqHandler);
+PROVIDE(TIMER1_IRQ_0 = DefaultIrqHandler);
+PROVIDE(TIMER1_IRQ_1 = DefaultIrqHandler);
+PROVIDE(TIMER1_IRQ_2 = DefaultIrqHandler);
+PROVIDE(TIMER1_IRQ_3 = DefaultIrqHandler);
+PROVIDE(PWM_IRQ_WRAP_0 = DefaultIrqHandler);
+PROVIDE(PWM_IRQ_WRAP_1 = DefaultIrqHandler);
+PROVIDE(DMA_IRQ_0 = DefaultIrqHandler);
+PROVIDE(DMA_IRQ_1 = DefaultIrqHandler);
+PROVIDE(DMA_IRQ_2 = DefaultIrqHandler);
+PROVIDE(DMA_IRQ_3 = DefaultIrqHandler);
+PROVIDE(USBCTRL_IRQ = DefaultIrqHandler);
+PROVIDE(PIO0_IRQ_0 = DefaultIrqHandler);
+PROVIDE(PIO0_IRQ_1 = DefaultIrqHandler);
+PROVIDE(PIO1_IRQ_0 = DefaultIrqHandler);
+PROVIDE(PIO1_IRQ_1 = DefaultIrqHandler);
+PROVIDE(PIO2_IRQ_0 = DefaultIrqHandler);
+PROVIDE(PIO2_IRQ_1 = DefaultIrqHandler);
+PROVIDE(IO_IRQ_BANK0 = DefaultIrqHandler);
+PROVIDE(IO_IRQ_BANK0_NS = DefaultIrqHandler);
+PROVIDE(IO_IRQ_QSPI = DefaultIrqHandler);
+PROVIDE(IO_IRQ_QSPI_NS = DefaultIrqHandler);
+PROVIDE(SIO_IRQ_FIFO = DefaultIrqHandler);
+PROVIDE(SIO_IRQ_BELL = DefaultIrqHandler);
+PROVIDE(SIO_IRQ_FIFO_NS = DefaultIrqHandler);
+PROVIDE(SIO_IRQ_BELL_NS = DefaultIrqHandler);
+PROVIDE(SIO_IRQ_MTIMECMP = DefaultIrqHandler);
+PROVIDE(CLOCKS_IRQ = DefaultIrqHandler);
+PROVIDE(SPI0_IRQ = DefaultIrqHandler);
+PROVIDE(SPI1_IRQ = DefaultIrqHandler);
+PROVIDE(UART0_IRQ = DefaultIrqHandler);
+PROVIDE(UART1_IRQ = DefaultIrqHandler);
+PROVIDE(ADC_IRQ_FIFO = DefaultIrqHandler);
+PROVIDE(I2C0_IRQ = DefaultIrqHandler);
+PROVIDE(I2C1_IRQ = DefaultIrqHandler);
+PROVIDE(OTP_IRQ = DefaultIrqHandler);
+PROVIDE(TRNG_IRQ = DefaultIrqHandler);
+PROVIDE(PLL_SYS_IRQ = DefaultIrqHandler);
+PROVIDE(PLL_USB_IRQ = DefaultIrqHandler);
+PROVIDE(POWMAN_IRQ_POW = DefaultIrqHandler);
+PROVIDE(POWMAN_IRQ_TIMER = DefaultIrqHandler);
+PROVIDE(SW0_IRQ = DefaultIrqHandler);
+PROVIDE(SW1_IRQ = DefaultIrqHandler);
+PROVIDE(SW2_IRQ = DefaultIrqHandler);
+PROVIDE(SW3_IRQ = DefaultIrqHandler);
+PROVIDE(SW4_IRQ = DefaultIrqHandler);
+PROVIDE(SW5_IRQ = DefaultIrqHandler);
 
 /* # Multi-processing hook function
    fn _mp_hook() -> bool;
@@ -176,6 +227,7 @@ SECTIONS
   {
       __end_block_addr = .;
       KEEP(*(.end_block));
+      __flash_binary_end = .;
   } > FLASH
 
   /* fictitious region that represents the memory available for the heap */
@@ -250,4 +302,3 @@ then modify your build script to compile the C code _without_ the
 details.");
 
 /* Do not exceed this mark in the error messages above                                    | */
-
